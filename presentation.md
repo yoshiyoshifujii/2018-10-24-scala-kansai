@@ -24,7 +24,7 @@ class: impact
 - ChatWork株式会社 (2ヶ月)
 - Scala関西 Summit スタッフ
 - Scala歴 4年
-- Contributed to Akka
+- Contributors of Akka
 - [chatwork/akka-guard](https://github.com/chatwork/akka-guard)
 - 🍣 🍶
 
@@ -72,6 +72,12 @@ class: middle
 
 
 .right[.small[https://www.oracle.com/technetwork/jp/articles/java/ja-topics/jdk-release-model-4487660-ja.html]]
+
+---
+
+.center[
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/14zC8niqVqAUuv" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/oracle4engineer/jdk-ver20" title="JDK: 新しいリリースモデル解説（ver.2.0）" target="_blank">JDK: 新しいリリースモデル解説（ver.2.0）</a> </strong> from <strong><a href="https://www.slideshare.net/oracle4engineer" target="_blank">オラクルエンジニア通信</a></strong> </div>
+]
 
 ---
 
@@ -156,7 +162,7 @@ class: middle
 ]
 
 .col-6[
-- ScalaコードのコンパイルにはJava 8を使用することをお勧めします。
+- コンパイルは Java 8 が推奨
 - JVMは下位互換性があるため、新しいJVMを使用してScalaコンパイラによってコンパイルされたコードを古いJVMバージョン用に実行するのが通常安全です。
 ]
 
@@ -222,14 +228,15 @@ class: middle
 
 ---
 
-# ScalaのJava対応状況
+# ScalaのJava対応状況-まとめ
 
 .col-6[
 
-- JVM 9, 10は、サポートが終了している
-- JVM 11は、まだテスト中
-- Akkaが動かないとかやばい
-- ライブラリもテスト中
+- Java 8が推奨
+- Java 9, 10は、Oracleのサポート終了
+- Java 11は、絶賛テスト中
+  - Akkaが動かないとかやばい
+  - ライブラリもテスト中が多い
 
 ]
 
@@ -241,14 +248,144 @@ class: middle
 
 ---
 
+# ScalaのJava対応状況-まとめ
+
+- いままで通り無償でやっていくなら、Java8
+- ただし、2019年1月まで
+- Java11にあげたいけど全部は動かない
+
+
+---
+
 class: middle
 
 # 選択肢
 
-1. Oracle
-2. Azul Systems
-3. IBM
-4. RedHad
-5. 自前でがんばる
+---
 
+# 選択肢
+
+選択肢としては、
+
+1. Oracle
+2. AdoptOpenJDK
+3. Azul Systems
+4. IBM
+5. Red Hat
+6. 自前でがんばる
+
+---
+
+## Oracleの無償サポート
+
+.col-6[
+
+- Oracle JDKの公式アップデートは、Java8のみ残ってる
+- それも、2019年1月(商用)まで
+- カウントダウンは、はじまってる
+- .small[https://www.oracle.com/technetwork/jp/java/eol-135779-ja.html]
+
+]
+
+.col-6[
+<img src="img/oracle1.png" style="border: 1px solid;" width="100%">
+]
+
+
+
+---
+
+## Oracleの有償サポート
+
+.col-6[
+
+- Premier SupportならJava8が2022年3月
+- PC端末が月額1ユーザー2.5ドル
+- サーバ／クラウドが月額1CPU25ドル
+- 標準の契約期間は1年（2年および3年もあり）
+- ボリュームディスカウントもあるらしい
+- .small[https://www.oracle.com/technetwork/jp/java/eol-135779-ja.html]
+- .small[https://www.oracle.com/technetwork/jp/java/javaseproducts/overview/javasesubscriptionfaq-4891443-ja.html]
+
+]
+
+.col-6[
+<img src="img/oracle2.png" style="border: 1px solid;" width="100%">
+]
+
+---
+
+## AdoptOpenJDK
+
+.col-6[
+- OpenJDKのビルドを提供するコミュニティ(無償)
+- IBMなどがスポンサー
+- LTSについては、4年間のサポート
+- Java8について、2022年9月までサポート
+- .small[https://adoptopenjdk.net/index.html]
+]
+
+.col-6[
+<img src="img/adopt1.png" style="border: 1px solid;" width="100%">
+]
+
+---
+
+## AdoptOpenJDK - 考察(私見も多いに含む)
+
+- Oracleほどリリースが早くない
+- 肌感覚として、1、2週間ほど遅れる
+  - OpenJDKは、JDK 8u192 (2018/10/23現在)
+  - AdoptOpenJDKは、JDK 8u181 (2018/10/23現在)
+- あくまでベストエフォート
+- コミュニティの要望が強いので早めに対応される期待はある
+- 今までOracleJDKを使ってたなら、色々と検証はしておくべき
+  - SSL証明書が不足して、httpsクライアントが失敗するとか
+
+---
+
+## Azul Systems
+
+.col-6[
+- Zulu(無償)
+- Zulu Enterprise(有償)がある
+- Java SE標準に完全準拠したOpenJDKの認証ビルド
+- 10年間のエンタープライズグレードのJavaサポート
+- .small[https://jp.azul.com/products/zulu-and-zulu-enterprise/]
+]
+
+.col-6[
+<img src="img/zulu.png" style="border: 1px solid;" width="100%">
+]
+
+---
+
+## IBM
+
+- Java SDKは2022年4月までJava8をサポート
+- ただし、JVMがJ9
+- .small[https://www.slideshare.net/takakiyo/jvmopenj9-vmibm-java]
+
+---
+
+## Red Hat
+
+- Red Hat Enterprise Linux上のJDKをサポート
+- OpenJDK8は、2023年6月まで
+- .small[https://access.redhat.com/ja/articles/1457743]
+
+---
+
+## 自前でがんばる
+
+- http://hg.openjdk.java.net/jdk8/jdk8/raw-file/tip/README-builds.html
+- がんばれ!!
+
+---
+
+# まとめ
+
+- Scalaは、Java8でコンパイル推奨
+- 無償は、AdoptOpenJDKかな…
+- 有償は、Azul or Oracle かな…
 
